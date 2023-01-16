@@ -1,0 +1,64 @@
+{% extends 'posts.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'posts' %}">Назад к постам</a></li>
+        </ol>
+    </nav>
+    <hr>
+    <h4 class="text-center">{{ post.title }}</h4>
+    <small>опубликовано: {{ post.created_at|date:"Y-m-d H:i" }}</small>
+    <br><br>
+    <p>{{ post.content|safe }}</p>
+    <hr>
+    <p><strong>Комментарии</strong></p>
+    <br>
+    <div class="row" id="comments-list">
+        {% for comment in post.comments.all %}
+            <div class="col-md-12 mt-3 mb-3">
+                <p><strong>{{ comment.author.username }}</strong> |
+                    <small>опубликовано:{{ comment.created_at|date:"Y-m-d H:i" }}</small></p>
+                <p>{{ comment.text }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <hr>
+    <form action="{% url 'comments:comment-create' content_type="post" object_id=post.id %}" method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <br>
+        <input class="btn btn-primary" type="submit" id="send-comment" value="Отправить">
+    </form>
+{% endblock content %}
+{% block js %}
+    <script>
+        const commentsSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/posts/'
+            + "{{ post.id }}"
+            + '/'
+        );
+        commentsSocket.onmessage = function (e) {
+            const data = JSON.parse(e.data);
+            commentsList = document.getElementById('comments-list')
+            commentsList.insertAdjacentHTML(
+                'beforeend',
+                '<div class="col-md-12 mt-3 mb-3">\n' +
+                '<p><strong>' + data['message']['author'] + '</strong> | <small>опубликовано:' + data['message']['created_at'] + '</small></p>\n' +
+                '<p>' + data['message']['text'] + '</p>\n' +
+                '</div>'
+            )
+        };
+        document.querySelector('#send-comment').onclick = function (e) {
+            e.preventDefault()
+            const messageInputDom = document.querySelector('#id_text');
+            const text = messageInputDom.value;
+            commentsSocket.send(JSON.stringify({
+                'text': text
+            }));
+            messageInputDom.value = '';
+        };
+    </script>
+{% endblock js %}
