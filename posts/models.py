@@ -7,7 +7,7 @@ from utils.default_user import User
 
 
 class Post(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Creator')
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     slug = models.SlugField()
     content = models.TextField(verbose_name='Содержимое поста')

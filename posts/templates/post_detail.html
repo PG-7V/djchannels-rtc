@@ -3,22 +3,22 @@
 {% block content %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'posts' %}">Назад к постам</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'posts' %}">Go to chats</a></li>
         </ol>
     </nav>
     <hr>
     <h4 class="text-center">{{ post.title }}</h4>
-    <small>опубликовано: {{ post.created_at|date:"Y-m-d H:i" }}</small>
+
     <br><br>
-    <p>{{ post.content|safe }}</p>
+
     <hr>
-    <p><strong>Комментарии</strong></p>
+    <p><strong>Messages</strong></p>
     <br>
     <div class="row" id="comments-list">
         {% for comment in post.comments.all %}
             <div class="col-md-12 mt-3 mb-3">
                 <p><strong>{{ comment.author.username }}</strong> |
-                    <small>опубликовано:{{ comment.created_at|date:"Y-m-d H:i" }}</small></p>
+                    <small>published:{{ comment.created_at|date:"Y-m-d H:i" }}</small></p>
                 <p>{{ comment.text }}</p>
             </div>
         {% endfor %}
@@ -28,7 +28,7 @@
         {% csrf_token %}
         {{ form|crispy }}
         <br>
-        <input class="btn btn-primary" type="submit" id="send-comment" value="Отправить">
+        <input class="btn btn-primary" type="submit" id="send-comment" value="Send message">
     </form>
 {% endblock content %}
 {% block js %}
@@ -46,7 +46,7 @@
             commentsList.insertAdjacentHTML(
                 'beforeend',
                 '<div class="col-md-12 mt-3 mb-3">\n' +
-                '<p><strong>' + data['message']['author'] + '</strong> | <small>опубликовано:' + data['message']['created_at'] + '</small></p>\n' +
+                '<p><strong>' + data['message']['author'] + '</strong> | <small>published:' + data['message']['created_at'] + '</small></p>\n' +
                 '<p>' + data['message']['text'] + '</p>\n' +
                 '</div>'
             )

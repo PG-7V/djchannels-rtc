@@ -7,11 +7,11 @@ from utils.default_user import User
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(User, verbose_name='Автор комментария', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, verbose_name='message sender', on_delete=models.CASCADE)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
-    text = models.TextField(verbose_name='Текст комментария')
+    text = models.TextField(verbose_name='Text message')
     created_at = models.DateTimeField(editable=False)
 
     def __str__(self):

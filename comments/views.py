@@ -20,5 +20,5 @@ class CommentCreateView(View):
             new_comment.content_object = model
             new_comment.save()
             return HttpResponseRedirect(model.get_absolute_url())
-        messages.add_message(request, messages.ERROR, 'Не удалось оставить комментарий')
+        messages.add_message(request, messages.ERROR, 'Send message is failed')
         return HttpResponseRedirect(model.get_absolute_url())

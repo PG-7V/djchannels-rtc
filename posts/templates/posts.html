@@ -10,15 +10,15 @@
 <body>
 <div class="container mt-3">
     {% block content %}
-        <h3>Посты</h3>
+        <h3>Chats</h3>
         <hr>
         <div class="row">
             {% for post in posts %}
                 <div class="col-md-4">
                     <h5>{{ post.title }}</h5>
-                    <p><small>опубликовано: {{ post.created_at|date:"Y-m-d H:i" }}</small></p>
+
                     <a href="{% url 'post' post_slug=post.slug %}" style="text-decoration: none; color:white">
-                        <button class="btn btn-primary">Читать</button>
+                        <button class="btn btn-primary">Read</button>
                     </a>
                 </div>
             {% endfor %}
