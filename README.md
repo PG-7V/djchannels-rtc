@@ -5,7 +5,7 @@
 ## Войти в контейнер _web
     $ docker ps
     $ docker exec -it <id conteiner> /bin/sh
-- загрузить фикстуры
+## Загрузить фикстуры
     $ python manage.py loaddata dump.json
 ## Авторизоваться
 - http://127.0.0.1:8000/admin/ login/pass root
