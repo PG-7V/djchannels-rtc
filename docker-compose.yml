@@ -12,14 +12,16 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
+    volumes:
+      - ./static:/var/www/static
     entrypoint:
       - ./entrypoint.sh
     depends_on:
       - postgresql
+      - redis
 
   postgresql:
     image: postgres
-
     environment:
       - POSTGRES_PASSWORD=password
     ports:
@@ -33,5 +35,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
+    volumes:
+      - ./static:/var/www/static
     depends_on:
       - web
