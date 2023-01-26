@@ -39,3 +39,4 @@ services:
       - ./static:/var/www/static
     depends_on:
       - web
+      - postgresql
