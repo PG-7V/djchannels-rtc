@@ -140,3 +140,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+LOGIN_REDIRECT_URL = '/posts/'
+
+X_FRAME_OPTIONS = 'ALLOW-FROM *'
+CSRF_TRUSTED_ORIGINS = ['*']
