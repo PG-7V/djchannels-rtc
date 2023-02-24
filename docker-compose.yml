@@ -29,14 +29,14 @@ services:
     depends_on:
       - redis
 
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    ports:
-      - "80:80"
-    volumes:
-      - ./static:/var/www/static
-    depends_on:
-      - web
-      - postgresql
+#  nginx:
+#    build:
+#      context: ./nginx
+#      dockerfile: Dockerfile
+#    ports:
+#      - "80:80"
+#    volumes:
+#      - ./static:/var/www/static
+#    depends_on:
+#      - web
+#      - postgresql
