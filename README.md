@@ -10,5 +10,7 @@
 ## Авторизоваться
 - http://127.0.0.1:8000/admin/
 - login/pass root
+- logi/pass admin/devpass
+- login/pass dev/devpass
 - перейти в чат http://127.0.0.1:8000/posts/chat1/
 - отправить сообщение через форму внизу
